@@ -23,12 +23,15 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
 let { JWT_SECRET = '' } = process.env;
-const { PORT = '' } = process.env;
+const { PORT = '9000' } = process.env;
 
 if (!JWT_SECRET && fs.existsSync('/run/secrets/JWT_SECRET')) {
 
 	JWT_SECRET = fs.readFileSync('/run/secrets/JWT_SECRET');
 
+} else if(!JWT_SECRET) {
+
+	JWT_SECRET = 'secret';
 }
 
 sharp.cache(false);
